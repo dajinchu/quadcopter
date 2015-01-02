@@ -1,3 +1,5 @@
+#include <Servo.h>
+
 const int LED = 13; 
 
 boolean count = false;
@@ -15,11 +17,11 @@ void setup()
 void loop(){
   
   while (Serial.available() == 0);
-  int data = Serial.read() - '0'; 
-  if (data == HIGH){
+  int data = Serial.read(); 
+  if (data == 255){
     digitalWrite(LED, HIGH);
   }
-  else if(data == LOW) {
+  else if(data == 0) {
     digitalWrite(LED, LOW);
   }
   

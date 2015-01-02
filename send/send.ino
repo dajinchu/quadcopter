@@ -1,7 +1,5 @@
 const int LED = 13; 
 const int BUTTON = 7;
-const int FALSE= -1;
-const int TRUE = 1;
 
 boolean on = false;
 boolean prevButtonState = false;
@@ -21,11 +19,11 @@ void loop()
   if(in == HIGH) {
     if(!prevButtonState) {
       if(!on) {
-        Serial.println(HIGH);
+        Serial.println(255);
         delay(50);
       }
       if(on){
-        Serial.println(LOW);
+        Serial.println(0);
         delay(50);    
       }
       on = !on;
