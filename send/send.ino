@@ -1,43 +1,27 @@
-const int LED = 13; 
-const int BUTTON = 7;
+#include <math.h>
+
+const int LED = 11; 
+const int POTENTIOMETER = 2;
 
 boolean on = false;
-boolean prevButtonState = false;
+int prevButtonState;
 int val = 0;
-int in = LOW;
+int in = 0;
 
 void setup()
 {
   pinMode(LED, OUTPUT);
-  pinMode(BUTTON, INPUT); 
-  Serial.begin(9600); 
+  Serial.begin(9600);
+  prevButtonState = analogRead(POTENTIOMETER);
 }
 
 void loop()
 {
-  in = digitalRead(BUTTON);
-  if(in == HIGH) {
-    if(!prevButtonState) {
-      if(!on) {
-        Serial.println(255);
-        delay(50);
-      }
-      if(on){
-        Serial.println(0);
-        delay(50);    
-      }
-      on = !on;
-    }
-    prevButtonState = true;
-  }
-  else if(in == LOW) {
-    prevButtonState = false;  
-  }
-  
-  if(!on) {
-    digitalWrite(LED, LOW);
-  }
-  if(on) {
-    digitalWrite(LED, HIGH);
+  in = analogRead(POTENTIOMETER);
+  if(prevButtonState != in){
+    //If pot got turned
+    Serial.write(in / 4);
+    analogWrite(LED, in/4);
+    prevButtonState = in;
   }
 }
