@@ -5,7 +5,6 @@ const int POTENTIOMETER = 2;
 
 boolean on = false;
 int prevButtonState;
-int val = 0;
 int in = 0;
 
 void setup()
@@ -17,9 +16,7 @@ void setup()
 
 void loop()
 {
-  while((in=analogRead(POTENTIOMETER))==prevButtonState);
-  //If pot got turned
-  Serial.write(in / 4);
+  in = analogRead(POTENTIOMETER);
+  Serial.write(128);
   analogWrite(LED, in/4);
-  prevButtonState = in;
 }
