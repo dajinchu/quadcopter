@@ -17,11 +17,9 @@ void setup()
 
 void loop()
 {
-  in = analogRead(POTENTIOMETER);
-  if(prevButtonState != in){
-    //If pot got turned
-    Serial.write(in / 4);
-    analogWrite(LED, in/4);
-    prevButtonState = in;
-  }
+  while((in=analogRead(POTENTIOMETER))==prevButtonState);
+  //If pot got turned
+  Serial.write(in / 4);
+  analogWrite(LED, in/4);
+  prevButtonState = in;
 }
