@@ -1,27 +1,24 @@
 const int LED = 11; 
-const int BUTTON = 7;
+const int POTENTIOMETER = 2;
 
-boolean on = false;
 int prevButtonState;
 int in = 0;
 
 void setup()
 {
   pinMode(LED, OUTPUT);
-  pinMode(BUTTON, INPUT);
   Serial.begin(9600);
+  prevButtonState = analogRead(POTENTIOMETER);
 }
 
 void loop()
 {
-  in = digitalRead(BUTTON);
-  if(in == HIGH){
-    Serial.write(128);
+  in = analogRead(POTENTIOMETER);
+  if(prevButtonState != in){
+    //If pot got turned
+    Serial.write(in / 4);
     delay(50);
-    digitalWrite(LED,HIGH);
-  }else{
-    Serial.write(0);
-    delay(50);
-    digitalWrite(LED,LOW);
+    analogWrite(LED, in/4);
+    prevButtonState = in;
   }
 }
